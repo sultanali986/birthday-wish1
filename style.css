@@ -1,1 +1,330 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
+body {
+    background: radial-gradient(circle at center, #1f0238, #0a0014);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#sparkleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Glassmorphism Styles */
+.glass-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px 0 rgba(255, 0, 128, 0.2);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.step-screen {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.step-screen.active {
+    display: flex;
+}
+
+.glowing-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ff77bc;
+    text-shadow: 0 0 15px #ff007f;
+}
+
+#countdown-box span {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 0 0 20px #ffd700;
+}
+
+input[type="password"] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 20px 0;
+    border-radius: 25px;
+    border: 2px solid #ff007f;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    text-align: center;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff007f, #7928ca);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.9);
+}
+
+.error-msg {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* Header */
+.welcome-header {
+    text-align: center;
+    padding: 50px 20px 20px;
+}
+
+.sparkle-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    color: #ffd700;
+    text-shadow: 0 0 20px #ff007f;
+}
+
+/* Balloon Section */
+.content-section {
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #ff77bc;
+}
+
+.balloon-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.balloon {
+    width: 60px;
+    height: 75px;
+    background: #ff007f;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    cursor: pointer;
+    position: relative;
+    animation: float 4s ease-in-out infinite alternate;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3);
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+
+/* Photo Polaroid Cards */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.polaroid-card {
+    background: #fff;
+    color: #222;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transform: rotate(-2deg);
+    transition: transform 0.3s;
+}
+
+.polaroid-card:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.polaroid-card:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+.polaroid-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.caption {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    margin-top: 10px;
+}
+
+/* Video Grids */
+.video-grid, .video-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.video-container iframe, .video-card iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+.video-card {
+    min-height: 250px;
+    position: relative;
+}
+
+/* Card Section */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.flip-card {
+    padding: 25px;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.flip-card:hover {
+    border-color: #ffd700;
+    transform: translateY(-5px);
+}
+
+.script-font {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ffd700;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 400px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* Cake CSS */
+.cake-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.cake {
+    position: relative;
+    width: 150px;
+    height: 100px;
+    background: #f48fb1;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 0 20px rgba(255,0,127,0.5);
+}
+
+.candle-container {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: -25px;
+    width: 100%;
+}
+
+.candle {
+    width: 10px;
+    height: 25px;
+    background: #fff;
+    position: relative;
+    cursor: pointer;
+}
+
+.flame {
+    width: 10px;
+    height: 12px;
+    background: orange;
+    border-radius: 50%;
+    position: absolute;
+    top: -12px;
+    box-shadow: 0 0 10px orange;
+}
+
+.flame.out {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
