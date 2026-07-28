@@ -5,17 +5,25 @@
     font-family: 'Poppins', sans-serif;
 }
 
+:root {
+    --theme-bg1: #2a081a;
+    --theme-bg2: #12000c;
+    --accent-glow: #ff007f;
+    --accent-light: #ff80df;
+    --gold: #ffd700;
+}
+
 body {
-    /* Dark Pink & Magenta Glowing Background Theme */
-    background: radial-gradient(circle at center, #3d0528 0%, #1a0011 70%, #0d0008 100%);
+    background: radial-gradient(circle at center, var(--theme-bg1) 0%, var(--theme-bg2) 80%, #000000 100%);
     color: #ffffff;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background 0.8s ease-in-out;
 }
 
 #bgAnimationCanvas {
@@ -30,121 +38,242 @@ body {
 
 .step-card {
     display: none;
-    position: absolute;
-    width: 92%;
-    max-width: 480px;
+    position: relative;
+    width: 94%;
+    max-width: 520px;
     z-index: 10;
-    animation: slideUp 0.5s ease-out;
+    margin: 20px auto;
+    animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .step-card.active {
     display: block;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Glassmorphism Pink Glow Box */
+/* Premium Frosted Curved Glass Styling */
 .glass-box {
-    background: rgba(255, 0, 127, 0.08);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    border: 1.5px solid rgba(255, 105, 180, 0.4);
-    border-radius: 28px;
-    padding: 28px 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 127, 0.4);
+    background: rgba(35, 5, 25, 0.45);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 105, 180, 0.5);
+    border-radius: 32px;
+    padding: 35px 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 
+                0 0 35px var(--accent-glow), 
+                inset 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .hidden { display: none !important; }
 
+/* Large & Elegant Typography */
 .glow-title {
-    font-size: 2.1rem;
-    color: #ff99dd;
-    text-shadow: 0 0 15px #ff007f, 0 0 30px #ff007f;
-    margin-bottom: 8px;
+    font-size: 2.3rem;
+    font-family: 'Playfair Display', serif;
+    color: #ffffff;
+    text-shadow: 0 0 12px var(--accent-glow), 0 0 25px var(--accent-glow);
+    margin-bottom: 10px;
 }
 
-.script-font { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffd700; }
-.subtitle { font-size: 0.9rem; color: #f3b0d8; margin-bottom: 20px; }
-.badge { display: inline-block; padding: 4px 14px; background: rgba(255, 0, 127, 0.3); border: 1px solid #ff66c4; border-radius: 12px; color: #ffcced; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
+.script-font-lg { 
+    font-family: 'Dancing Script', cursive; 
+    font-size: 2.8rem; 
+    color: var(--gold); 
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
 
-#timer-number { font-size: 4.5rem; font-weight: bold; color: #ffd700; text-shadow: 0 0 25px #ffd700, 0 0 10px #ff007f; }
+.subtitle-lg { 
+    font-size: 1.05rem; 
+    color: var(--accent-light); 
+    margin-bottom: 22px; 
+    line-height: 1.4;
+}
 
-.btn-glow {
-    background: linear-gradient(135deg, #ff007f, #d8006f, #8000ff);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 12px 30px;
+.description-lg {
     font-size: 1rem;
-    font-weight: 600;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 5px 25px rgba(255, 0, 127, 0.7);
-    transition: transform 0.2s, box-shadow 0.2s;
+    color: #f3d4e8;
+    margin-bottom: 25px;
+    line-height: 1.6;
 }
 
-.btn-glow:hover { transform: scale(1.05); box-shadow: 0 5px 35px rgba(255, 0, 127, 0.9); }
+.highlight-gold { color: var(--gold); font-weight: 600; }
+
+.badge-premium { 
+    display: inline-block; 
+    padding: 6px 18px; 
+    background: linear-gradient(90deg, rgba(255,0,127,0.4), rgba(255,215,0,0.4));
+    border: 1px solid var(--gold); 
+    border-radius: 20px; 
+    color: #ffffff; 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+    letter-spacing: 1.5px;
+    margin-bottom: 14px; 
+}
+
+#timer-number { 
+    font-size: 5rem; 
+    font-weight: 800; 
+    color: var(--gold); 
+    text-shadow: 0 0 30px var(--gold), 0 0 15px var(--accent-glow); 
+    margin: 10px 0;
+}
+
+/* Glowing Buttons */
+.btn-glow {
+    background: linear-gradient(135deg, var(--accent-glow), #d8006f, #7000ff);
+    color: white;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    padding: 14px 34px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 35px;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(255, 0, 127, 0.7);
+    transition: all 0.3s ease;
+}
+
+.btn-glow:hover { 
+    transform: translateY(-3px) scale(1.04); 
+    box-shadow: 0 12px 40px rgba(255, 0, 127, 0.9); 
+}
 
 .btn-sec {
     background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 105, 180, 0.4);
+    border: 1px solid rgba(255, 105, 180, 0.5);
     color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 18px;
+    border-radius: 25px;
     cursor: pointer;
-    margin: 3px;
-    font-size: 0.8rem;
-    transition: background 0.2s;
+    margin: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
-.btn-sec:hover { background: #ff007f; }
+.btn-sec:hover, .btn-sec.active-vbtn { 
+    background: var(--accent-glow); 
+    border-color: #ffffff;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
 
-/* Digit Keypad Styling */
-.pin-display { display: flex; justify-content: center; gap: 12px; margin: 15px 0; }
-.pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #ff66c4; background: rgba(0,0,0,0.3); }
-.pin-dot.filled { background: #ffd700; border-color: #ffd700; box-shadow: 0 0 15px #ffd700; }
+/* Keypad Styling */
+.pin-display { display: flex; justify-content: center; gap: 14px; margin: 20px 0; }
+.pin-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--accent-light); background: rgba(0,0,0,0.4); }
+.pin-dot.filled { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
 
-.keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 260px; margin: 15px auto 0; }
-.keypad-btn { width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255, 105, 180, 0.3); background: rgba(255, 0, 127, 0.15); color: white; font-size: 1.4rem; cursor: pointer; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.keypad-btn:active { background: #ff007f; transform: scale(0.92); }
+.keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 280px; margin: 15px auto 0; }
+.keypad-btn { width: 65px; height: 65px; border-radius: 50%; border: 1.5px solid rgba(255, 105, 180, 0.4); background: rgba(255, 0, 127, 0.2); color: white; font-size: 1.5rem; font-weight: 600; cursor: pointer; margin: 0 auto; }
+.keypad-btn:active { background: var(--accent-glow); transform: scale(0.9); }
 
-/* Balloons Grid */
-.balloon-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
-.balloon { width: 50px; height: 65px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; cursor: pointer; animation: float 3s infinite alternate ease-in-out; }
-@keyframes float { to { transform: translateY(-10px); } }
+/* Balloon Wishes Fix */
+.balloon-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px 0; }
+.balloon { width: 55px; height: 70px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; cursor: pointer; animation: float 3s infinite alternate ease-in-out; }
+@keyframes float { to { transform: translateY(-12px); } }
 
-.wish-banner { background: rgba(255,0,127,0.25); border: 1px solid #ff66c4; padding: 12px; border-radius: 12px; font-size: 0.9rem; color: #ffd700; margin-top: 15px; }
+.wish-banner { 
+    background: rgba(255, 0, 127, 0.25); 
+    border: 1.5px solid var(--accent-light); 
+    padding: 18px; 
+    border-radius: 18px; 
+    font-size: 1.15rem; 
+    font-weight: 600;
+    color: var(--gold); 
+    margin-top: 15px; 
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+}
 
-/* Polaroid Frame */
-.polaroid-wrapper { margin: 15px 0; }
-.polaroid-frame { background: white; color: black; padding: 12px 12px 20px 12px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); }
-.polaroid-frame img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
-.caption { font-family: 'Dancing Script', cursive; font-size: 1.3rem; margin-top: 8px; }
+/* Polaroid Photo Fix - FULL PHOTO DISPLAY NO CUTTING */
+.polaroid-wrapper { margin: 20px 0; }
+.polaroid-frame { 
+    background: #ffffff; 
+    color: #111111; 
+    padding: 14px 14px 22px 14px; 
+    border-radius: 12px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8); 
+}
+.img-container {
+    width: 100%;
+    height: 280px;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-container img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* Prevents image cropping */
+}
+.caption-lg { font-family: 'Dancing Script', cursive; font-size: 1.6rem; margin-top: 10px; color: #222; }
 
-/* Video Container */
-.video-container-box { position: relative; width: 100%; padding-bottom: 130%; height: 0; border-radius: 14px; overflow: hidden; background: black; margin: 15px 0; border: 1px solid #ff007f; }
+/* Video Player Container */
+.video-container-box { 
+    position: relative; 
+    width: 100%; 
+    padding-bottom: 125%; 
+    height: 0; 
+    border-radius: 18px; 
+    overflow: hidden; 
+    background: #000000; 
+    margin: 18px 0; 
+    border: 2px solid var(--accent-glow); 
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.5);
+}
 .video-container-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-/* 3D Cake CSS */
-.cake-box { height: 160px; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 20px; }
-.cake { position: relative; width: 140px; }
+/* 3D Cake */
+.cake-box { height: 170px; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 25px; }
+.cake { position: relative; width: 150px; }
 .layer { width: 100%; border-radius: 8px 8px 0 0; }
-.layer-bottom { height: 45px; background: #500a30; }
-.layer-middle { height: 35px; background: #ff007f; width: 110px; margin: 0 auto; }
-.layer-top { height: 25px; background: #ffc2e5; width: 80px; margin: 0 auto; }
-.candle-row { display: flex; justify-content: space-around; position: absolute; top: -20px; width: 80px; left: 30px; }
-.candle { width: 8px; height: 22px; background: white; position: relative; cursor: pointer; }
-.flame { width: 8px; height: 12px; background: orange; border-radius: 50%; position: absolute; top: -10px; box-shadow: 0 0 10px orange; }
+.layer-bottom { height: 50px; background: #500a30; }
+.layer-middle { height: 38px; background: #ff007f; width: 120px; margin: 0 auto; }
+.layer-top { height: 28px; background: #ffc2e5; width: 90px; margin: 0 auto; }
+.candle-row { display: flex; justify-content: space-around; position: absolute; top: -22px; width: 90px; left: 30px; }
+.candle { width: 10px; height: 24px; background: white; position: relative; cursor: pointer; }
+.flame { width: 10px; height: 14px; background: orange; border-radius: 50%; position: absolute; top: -12px; box-shadow: 0 0 12px orange; }
 .flame.out { display: none; }
 
-.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-.feature-card { background: rgba(255,0,127,0.15); padding: 12px; border-radius: 12px; font-size: 0.8rem; cursor: pointer; border: 1px solid rgba(255,105,180,0.4); }
+/* Cards & Awards Grid */
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+.feature-card { 
+    background: rgba(255, 0, 127, 0.18); 
+    padding: 16px; 
+    border-radius: 16px; 
+    font-size: 0.95rem; 
+    line-height: 1.4;
+    cursor: pointer; 
+    border: 1.5px solid rgba(255,105,180,0.4); 
+    transition: transform 0.2s;
+}
+.feature-card:hover { transform: scale(1.03); background: rgba(255,0,127,0.3); }
 
-.letter-content { background: rgba(255, 0, 127, 0.1); padding: 15px; border-radius: 12px; font-size: 0.88rem; line-height: 1.5; margin: 15px 0; color: #fce1f2; border: 1px solid rgba(255,105,180,0.3); }
-.signature { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #ff77bc; text-align: right; margin-top: 10px; }
+.awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
+.award-card { background: rgba(255,215,0,0.12); border: 1px solid var(--gold); padding: 14px 8px; border-radius: 16px; cursor: pointer; }
+.award-icon { font-size: 2rem; margin-bottom: 5px; }
+.award-card h4 { font-size: 0.9rem; color: var(--gold); }
+.award-card p { font-size: 0.7rem; color: #eeddff; }
+
+/* Letter Section */
+.letter-content { 
+    background: rgba(255, 0, 127, 0.12); 
+    padding: 22px; 
+    border-radius: 18px; 
+    font-size: 1rem; 
+    line-height: 1.6; 
+    margin: 18px 0; 
+    color: #fce1f2; 
+    border: 1.5px solid rgba(255,105,180,0.4); 
+}
+.signature-lg { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--gold); text-align: right; margin-top: 12px; }
+
 .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; }
-.error-msg { color: #ff4d4d; font-size: 0.85rem; margin-top: 5px; }
+.error-msg { color: #ff4d4d; font-size: 0.9rem; margin-top: 8px; font-weight: 600; }
