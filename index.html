@@ -5,31 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magical Birthday World ✨</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- Infinite Background Animation Canvas (Stars, Hearts, Balloons, Candles) -->
     <canvas id="bgAnimationCanvas"></canvas>
 
-    <!-- STEP 1: COUNTDOWN TIMER -->
     <div id="step-1" class="step-card active">
         <div class="glass-box text-center">
+            <span class="badge-premium">✨ LUXURY EDITION ✨</span>
             <h1 class="glow-title">The Magic Awaits ⏳</h1>
-            <p class="subtitle">Preparing your magical birthday world...</p>
+            <p class="subtitle-lg">Preparing your exclusive birthday universe...</p>
             <div id="timer-number">05</div>
             <p class="small-note">Seconds remaining</p>
-            <button id="btn-timer" class="btn-glow hidden" onclick="nextStep(2)">Unlock World ✨</button>
+            <button id="btn-timer" class="btn-glow hidden" onclick="nextStep(2)">Unlock Magical World ✨</button>
         </div>
     </div>
 
-    <!-- STEP 2: DIGIT KEYPAD PASSWORD -->
     <div id="step-2" class="step-card">
         <div class="glass-box text-center">
             <div class="lock-icon">🔒</div>
-            <h2 class="glow-title">Enter Secret Passcode</h2>
-            <p class="subtitle">Tap the magic numbers to proceed</p>
+            <h2 class="glow-title">Secret Passcode</h2>
+            <p class="subtitle-lg">Tap the magic numbers to open your world</p>
             <div class="pin-display">
                 <div class="pin-dot" id="dot-0"></div>
                 <div class="pin-dot" id="dot-1"></div>
@@ -54,22 +52,21 @@
         </div>
     </div>
 
-    <!-- STEP 3: WELCOME NOTE -->
     <div id="step-3" class="step-card">
         <div class="glass-box text-center">
-            <h1 class="glow-title">Happy 20th Birthday! 🎉</h1>
-            <p class="typewriter-text">27th August — A Special Day For A Special Soul ✨</p>
-            <p class="description">Welcome to your personalized magical universe. Let's start the celebration!</p>
+            <span class="badge-premium">CELEBRATION</span>
+            <h1 class="glow-title script-font-lg">Happy 20th Birthday! 🎉</h1>
+            <p class="subtitle-lg highlight-gold">27th August — A Special Day For A Special Soul ✨</p>
+            <p class="description-lg">Welcome to your personalized magical realm. Step inside for an unforgettable experience!</p>
             <button class="btn-glow" onclick="nextStep(4)">Start Party 🎈</button>
         </div>
     </div>
 
-    <!-- STEP 4: INTERACTIVE BALLOONS -->
     <div id="step-4" class="step-card">
         <div class="glass-box text-center">
-            <span class="badge">CHAPTER 01</span>
-            <h2 class="glow-title">Pop Each Balloon 🎈</h2>
-            <p class="subtitle">Click/Tap the balloons to reveal hidden notes!</p>
+            <span class="badge-premium">CHAPTER 01</span>
+            <h2 class="glow-title">Pop A Wish 🎈</h2>
+            <p class="subtitle-lg">Tap each balloon to reveal hidden secret notes!</p>
             <div class="balloon-grid" id="balloonGrid"></div>
             <div id="wishBox" class="wish-banner hidden">
                 <p id="wishMsg"></p>
@@ -79,12 +76,11 @@
         </div>
     </div>
 
-    <!-- STEP 5: 3D CAKE & CANDLE BLOW -->
     <div id="step-5" class="step-card">
         <div class="glass-box text-center">
-            <span class="badge">CHAPTER 02</span>
+            <span class="badge-premium">CHAPTER 02</span>
             <h2 class="glow-title">Blow The Candles 🎂</h2>
-            <p class="subtitle">Tap each flame to blow them out!</p>
+            <p class="subtitle-lg">Tap each flame to blow them out and make your wish!</p>
             <div class="cake-box">
                 <div class="cake">
                     <div class="layer layer-bottom"></div>
@@ -97,19 +93,20 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-glow" onclick="nextStep(6)">View Photo Memories ➡️</button>
+            <button class="btn-glow" onclick="nextStep(6)">View Photo Gallery 📸</button>
         </div>
     </div>
 
-    <!-- STEP 6: PHOTO GALLERY -->
     <div id="step-6" class="step-card">
         <div class="glass-box text-center">
-            <span class="badge">CHAPTER 03</span>
+            <span class="badge-premium">CHAPTER 03</span>
             <h2 class="glow-title">Golden Memories 📸</h2>
             <div class="polaroid-wrapper">
                 <div class="polaroid-frame">
-                    <img id="galleryImg" src="https://i.ibb.co/xqXrkbXz/image.jpg" alt="Memory">
-                    <p class="caption" id="galleryCaption">"Every moment with you is magical!"</p>
+                    <div class="img-container">
+                        <img id="galleryImg" src="https://i.ibb.co/xqXrkbXz/image.jpg" alt="Memory">
+                    </div>
+                    <p class="caption-lg" id="galleryCaption">"Every moment with you is pure magic!"</p>
                 </div>
             </div>
             <div class="controls-row">
@@ -117,51 +114,51 @@
                 <button class="btn-sec" onclick="nextPhoto(event)">Next ➡️</button>
             </div>
             <br>
-            <button class="btn-glow" onclick="nextStep(7)">Watch Special Videos 🎬</button>
+            <button class="btn-glow" onclick="nextStep(7)">Watch Special Wishes 🎬</button>
         </div>
     </div>
 
-    <!-- STEP 7: 3 BIRTHDAY VIDEOS -->
     <div id="step-7" class="step-card">
         <div class="glass-box text-center">
-            <span class="badge">CHAPTER 04</span>
-            <h2 class="glow-title">Special Birthday Wishes 🎬</h2>
+            <span class="badge-premium">CHAPTER 04</span>
+            <h2 class="glow-title">Birthday Video Wishes 🎬</h2>
+            <p class="subtitle-lg">Click the tabs below to watch special video clips</p>
             <div class="video-container-box">
-                <iframe id="videoPlayer1" src="https://drive.google.com/file/d/1YmPbjhJYp-b2coyCU9xb3RDy7fqwGmfq/preview" allow="autoplay"></iframe>
+                <iframe id="videoPlayer1" src="https://drive.google.com/file/d/1YmPbjhJYp-b2coyCU9xb3RDy7fqwGmfq/preview" allow="autoplay" allowfullscreen></iframe>
             </div>
-            <div class="controls-row">
-                <button class="btn-sec active-vbtn" onclick="switchVideo1('https://drive.google.com/file/d/1YmPbjhJYp-b2coyCU9xb3RDy7fqwGmfq/preview', event)">Wish 1</button>
-                <button class="btn-sec" onclick="switchVideo1('https://drive.google.com/file/d/150XnEI4rFlgbFFiwAiL3canqdjWCF0Cn/preview', event)">Wish 2</button>
-                <button class="btn-sec" onclick="switchVideo1('https://drive.google.com/file/d/14UmnfCb1Akgj8MR68iZ7p-eDQeanYWZ7/preview', event)">Wish 3</button>
+            <div class="controls-row flex-wrap">
+                <button class="btn-sec active-vbtn" onclick="switchVideo1('https://drive.google.com/file/d/1YmPbjhJYp-b2coyCU9xb3RDy7fqwGmfq/preview', event)">Wish 1 🎥</button>
+                <button class="btn-sec" onclick="switchVideo1('https://drive.google.com/file/d/150XnEI4rFlgbFFiwAiL3canqdjWCF0Cn/preview', event)">Wish 2 🎥</button>
+                <button class="btn-sec" onclick="switchVideo1('https://drive.google.com/file/d/14UmnfCb1Akgj8MR68iZ7p-eDQeanYWZ7/preview', event)">Wish 3 🎥</button>
             </div>
             <br>
-            <button class="btn-glow" onclick="nextStep(8)">Discover Awesome Traits ➡️</button>
+            <button class="btn-glow" onclick="nextStep(8)">Discover Why You're Awesome 🌟</button>
         </div>
     </div>
 
-    <!-- STEP 8: WHY YOU ARE AWESOME -->
     <div id="step-8" class="step-card">
         <div class="glass-box text-center">
-            <span class="badge">CHAPTER 05</span>
+            <span class="badge-premium">CHAPTER 05</span>
             <h2 class="glow-title">Why You Are Awesome ✨</h2>
+            <p class="subtitle-lg">Tap cards to spark magic!</p>
             <div class="cards-grid">
-                <div class="feature-card" onclick="explodeStars(event)"><p>💖 Your laugh brightens up any room instantly.</p></div>
-                <div class="feature-card" onclick="explodeStars(event)"><p>🌟 You inspire goodness everywhere you go.</p></div>
-                <div class="feature-card" onclick="explodeStars(event)"><p>🌸 Turning 20 looks absolutely gorgeous on you!</p></div>
-                <div class="feature-card" onclick="explodeStars(event)"><p>🎀 May this new year bring boundless happiness.</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>💖 Your smile lights up every single room instantly.</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>🌟 You possess the kindest and most elegant soul.</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>🌸 Turning 20 looks absolutely stunning on you!</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>🎀 May your life be filled with endless joy & success.</p></div>
             </div>
             <br>
-            <button class="btn-glow" onclick="nextStep(9)">Watch Couple Moments 👩‍❤️‍👨</button>
+            <button class="btn-glow" onclick="nextStep(9)">Watch Couple Reels 👩‍❤️‍👨</button>
         </div>
     </div>
 
-    <!-- STEP 9: 5 COUPLE VIDEOS -->
     <div id="step-9" class="step-card">
         <div class="glass-box text-center">
-            <span class="badge">CHAPTER 06</span>
-            <h2 class="glow-title">Cutest Couple Reels 👩‍❤️‍👨</h2>
+            <span class="badge-premium">CHAPTER 06</span>
+            <h2 class="glow-title">Cutest Couple Moments 👩‍❤️‍👨</h2>
+            <p class="subtitle-lg">Special reels created with love</p>
             <div class="video-container-box">
-                <iframe id="videoPlayer2" src="https://drive.google.com/file/d/13yiLCG9cpYq-iqLVR-cOGELkrj7SEgCY/preview"></iframe>
+                <iframe id="videoPlayer2" src="https://drive.google.com/file/d/13yiLCG9cpYq-iqLVR-cOGELkrj7SEgCY/preview" allowfullscreen></iframe>
             </div>
             <div class="controls-row flex-wrap">
                 <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/13yiLCG9cpYq-iqLVR-cOGELkrj7SEgCY/preview', event)">Reel 1</button>
@@ -171,21 +168,47 @@
                 <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/12psRul6UvxDlz2bfazLywzpu_yX8N4uL/preview', event)">Reel 5</button>
             </div>
             <br>
-            <button class="btn-glow" onclick="nextStep(10)">Read Heartfelt Letter 💌</button>
+            <button class="btn-glow" onclick="nextStep(10)">Read Secret Letter 💌</button>
         </div>
     </div>
 
-    <!-- STEP 10: FINAL LETTER -->
     <div id="step-10" class="step-card">
         <div class="glass-box text-center">
-            <h2 class="glow-title script-font">A Letter For You 💌</h2>
+            <span class="badge-premium">CHAPTER 07</span>
+            <h2 class="glow-title script-font-lg">A Letter For You 💌</h2>
             <div class="letter-content text-left">
-                <p>Dearest,</p>
-                <p>On your 20th birthday, I want to remind you how extraordinary you are. Your smile, your kindness, and your sweet soul bring immense joy to everyone around you.</p>
-                <p>May your future be as bright and beautiful as your heart. Happy Birthday!</p>
-                <p class="signature">With All My Love ❤️</p>
+                <p><strong>Dearest,</strong></p>
+                <p>On your 20th birthday, I want to remind you how extraordinarily special you are to me. Your laughter is my favorite song, and your presence brings endless warm light.</p>
+                <p>May this brand-new decade bring you infinite happiness, adventure, love, and all the success you truly deserve.</p>
+                <p class="signature-lg">Forever Yours ❤️</p>
             </div>
-            <button class="btn-glow" onclick="finalParty(event)">Grand Celebration 🎉</button>
+            <button class="btn-glow" onclick="nextStep(11)">View Official Awards 🏆</button>
+        </div>
+    </div>
+
+    <div id="step-11" class="step-card">
+        <div class="glass-box text-center">
+            <span class="badge-premium">GRAND FINALE</span>
+            <h2 class="glow-title">Official Awards 🏆</h2>
+            <div class="awards-grid">
+                <div class="award-card" onclick="explodeStars(event)">
+                    <div class="award-icon">👑</div>
+                    <h4>Best Heart</h4>
+                    <p>Purest soul on earth</p>
+                </div>
+                <div class="award-card" onclick="explodeStars(event)">
+                    <div class="award-icon">😊</div>
+                    <h4>Best Smile</h4>
+                    <p>Brightens every room</p>
+                </div>
+                <div class="award-card" onclick="explodeStars(event)">
+                    <div class="award-icon">✨</div>
+                    <h4>Most Magical</h4>
+                    <p>Unmatched charisma</p>
+                </div>
+            </div>
+            <br>
+            <button class="btn-glow" onclick="finalParty(event)">Celebrate Now! 🎉</button>
         </div>
     </div>
 
