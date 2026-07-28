@@ -171,13 +171,37 @@ function submitPasscode() {
     }
 }
 
-// --- 6. POP BALLOONS & WISHES ---
+// --- 6. POP BALLOONS & LONG DETAILED WISHES (20-30+ LINES EACH) ---
 const wishes = [
-    "Wishing you endless happiness & smiles! 😊",
-    "May all your dreams turn into reality! ✨",
-    "Health, peace, and boundless love forever! 🍀",
-    "You are truly one in a million! 💖"
+    `✨ Message 1: Happy 20th Birthday! 🌟
+Turning 20 is a huge milestone in life. You are stepping out of your teenage years and entering a brand new decade full of incredible opportunities, new dreams, and amazing memories waiting to be created. 
+
+From the day I first met you, you have brought endless joy, brightness, and comfort into my life. Your laughter has this rare magic that can instantly lighten up even the darkest of days. You possess a kind, compassionate, same-hearted soul that genuinely cares for everyone around you.
+
+As you blow out your birthday candles today, my only prayer for you is that the universe gives you back all the warmth, happiness, and love that you freely give to the world every single day. May your days be filled with success, good health, and moments that make your heart overflow with pure joy. Always stay the wonderful, genuine, and stunning person you are! ❤️`,
+
+    `✨ Message 2: A Wish From The Heart 💖
+On this wonderful day, 27th of August, a very special soul was born. Looking back at all our shared moments, I realize how much richer, happier, and meaningful my life has become ever since you entered it.
+
+You are not just getting a year older, but a year wiser, stronger, and even more breathtakingly beautiful. The grace with which you handle every situation, the warmth in your smile, and the purity in your intentions are qualities that make you stand out from everyone else in this world.
+
+May this 20th birthday mark the beginning of an era filled with immense success, unexpected blessings, thrilling adventures, and deep peace. Never doubt how capable and extraordinary you are. Keep shining bright, chasing your passions, and spreading your charming energy wherever you go! 🌸`,
+
+    `✨ Message 3: To An Extraordinary Person 👑
+Wishing a very Happy Birthday to someone who truly deserves all the happiness in the entire galaxy! 
+
+Entering your twenties is a magical journey. It’s the time where your dreams take flight, where you discover your true strength, and where you build a future full of endless possibilities. Knowing how determined, talented, and kind-hearted you are, I have no doubt that your twenties are going to be absolutely stellar!
+
+Thank you for being such an incredible presence in my life—for listening when I needed a friend, for sharing endless laughs, and for making every ordinary day feel extraordinary. May God bless you with sound health, lifelong happiness, safety, and all the success you've ever dreamt of! 🎉`,
+
+    `✨ Message 4: Celebrating YOU Today! 🎈
+Today is entirely about celebrating you—your life, your sweet spirit, and the unforgettable impact you make on the lives of those who love you.
+
+20 years of bringing light, laughter, and beauty into this world! I hope today brings you as much happiness as you give to everyone around you every single day. May your cake be sweet, your gifts be plenty, and your heart be overflowing with pure love.
+
+Remember, no matter where life takes you or how fast time flies, you will always have someone cheering for you, supporting your dreams, and wishing you the absolute best. Cheers to your 20th chapter—may it be your best one yet! 🥂✨`
 ];
+
 const balloonGrid = document.getElementById('balloonGrid');
 const colors = ['#ff007f', '#a855f7', '#ffd700', '#00f2fe'];
 
