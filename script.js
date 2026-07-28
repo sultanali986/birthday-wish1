@@ -1,4 +1,4 @@
-// --- 1. CONTINUOUS BACKGROUND ANIMATION (Stars, Hearts, Balloons, Candles) ---
+// --- 1. CONTINUOUS FLOATING BACKGROUND (Stars, Hearts, Balloons, Candles) ---
 const canvas = document.getElementById('bgAnimationCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -9,20 +9,18 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Dynamic Floating Elements Array
 const elements = [];
 const types = ['star', 'heart', 'balloon', 'candle'];
-const colorsList = ['#ff007f', '#ff66c4', '#ffd700', '#ffffff', '#00f2fe'];
+const colorsList = ['#ff007f', '#ff66c4', '#ffd700', '#ffffff', '#00f2fe', '#a855f7'];
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 60; i++) {
     elements.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 12 + 8,
         speedY: Math.random() * 1.2 + 0.3,
         type: types[Math.floor(Math.random() * types.length)],
-        color: colorsList[Math.floor(Math.random() * colorsList.length)],
-        swing: Math.random() * 2
+        color: colorsList[Math.floor(Math.random() * colorsList.length)]
     });
 }
 
@@ -38,18 +36,18 @@ function drawHeart(x, y, size, color) {
 function drawStar(x, y, size, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(x, y, size / 4, 0, Math.PI * 2);
+    ctx.arc(x, y, size / 3.5, 0, Math.PI * 2);
     ctx.fill();
 }
 
 function drawBalloon(x, y, size, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.ellipse(x, y, size / 2, size / 1.5, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, size / 2, size / 1.4, 0, 0, Math.PI * 2);
     ctx.fill();
 }
 
-function drawCandle(x, y, size) {
+function drawCandle(x, y) {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(x, y, 4, 14);
     ctx.fillStyle = '#ff9900';
@@ -68,7 +66,7 @@ function renderBackground() {
         if (el.type === 'star') drawStar(el.x, el.y, el.size, el.color);
         else if (el.type === 'heart') drawHeart(el.x, el.y, el.size, el.color);
         else if (el.type === 'balloon') drawBalloon(el.x, el.y, el.size, el.color);
-        else if (el.type === 'candle') drawCandle(el.x, el.y, el.size);
+        else if (el.type === 'candle') drawCandle(el.x, el.y);
 
         if (el.y < -20) {
             el.y = canvas.height + 20;
@@ -80,24 +78,46 @@ function renderBackground() {
 }
 renderBackground();
 
-// --- 2. CLICK STAR EXPLOSION ---
-window.addEventListener('click', (e) => explodeStars(e));
+// --- 2. DYNAMIC THEME COLOR SHIFT & CLICK SPARKLES ---
+const themeGradients = [
+    { bg1: '#2a081a', bg2: '#12000c', accent: '#ff007f' },
+    { bg1: '#1d002c', bg2: '#0a0014', accent: '#a855f7' },
+    { bg1: '#001a2c', bg2: '#000814', accent: '#00f2fe' },
+    { bg1: '#2c1a00', bg2: '#140b00', accent: '#ffd700' }
+];
+
+let themeIndex = 0;
+
+window.addEventListener('click', (e) => {
+    explodeStars(e);
+    
+    // Shift theme tint on click
+    themeIndex = (themeIndex + 1) % themeGradients.length;
+    const t = themeGradients[themeIndex];
+    document.documentElement.style.setProperty('--theme-bg1', t.bg1);
+    document.documentElement.style.setProperty('--theme-bg2', t.bg2);
+    document.documentElement.style.setProperty('--accent-glow', t.accent);
+});
 
 function explodeStars(e) {
     if (typeof confetti === 'function') {
         confetti({
-            particleCount: 22,
-            spread: 70,
+            particleCount: 25,
+            spread: 80,
             origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
-            colors: ['#ffd700', '#ff007f', '#ff66c4', '#ffffff']
+            colors: ['#ffd700', '#ff007f', '#ff66c4', '#ffffff', '#00f2fe']
         });
     }
 }
 
-// --- 3. STEP BY STEP NAVIGATION ---
+// --- 3. STEP NAVIGATION ---
 function nextStep(stepNum) {
     document.querySelectorAll('.step-card').forEach(card => card.classList.remove('active'));
-    document.getElementById(`step-${stepNum}`).classList.add('active');
+    const target = document.getElementById(`step-${stepNum}`);
+    if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 }
 
 // --- 4. COUNTDOWN TIMER ---
@@ -115,13 +135,12 @@ const countdown = setInterval(() => {
     }
 }, 1000);
 
-// --- 5. DIGIT KEYPAD LOGIC ---
+// --- 5. DIGIT KEYPAD ---
 let pin = "";
 function pressKey(num, e) {
     if (pin.length < 4) {
         pin += num;
         updateDots();
-        explodeStars(e);
     }
     if (pin.length === 4) setTimeout(submitPasscode, 300);
 }
@@ -143,7 +162,7 @@ function updateDots() {
 
 function submitPasscode() {
     if (pin === "2708" || pin === "2026") {
-        confetti({ particleCount: 120, spread: 90, origin: { y: 0.5 } });
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
         nextStep(3);
     } else {
         document.getElementById('pass-error').innerText = "Wrong Passcode! Try again ❤️";
@@ -152,15 +171,15 @@ function submitPasscode() {
     }
 }
 
-// --- 6. BALLOONS ---
+// --- 6. POP BALLOONS & WISHES ---
 const wishes = [
-    "Wishing you infinite laughter! 😂",
-    "May all your dreams come true! ✨",
-    "Health, wealth & happiness always! 🍀",
-    "Stay incredible forever! 💖"
+    "Wishing you endless happiness & smiles! 😊",
+    "May all your dreams turn into reality! ✨",
+    "Health, peace, and boundless love forever! 🍀",
+    "You are truly one in a million! 💖"
 ];
 const balloonGrid = document.getElementById('balloonGrid');
-const colors = ['#ff007f', '#7928ca', '#ffd700', '#00d2ff'];
+const colors = ['#ff007f', '#a855f7', '#ffd700', '#00f2fe'];
 
 wishes.forEach((w, i) => {
     const b = document.createElement('div');
@@ -168,7 +187,6 @@ wishes.forEach((w, i) => {
     b.style.backgroundColor = colors[i % colors.length];
     b.onclick = (e) => {
         b.style.visibility = 'hidden';
-        explodeStars(e);
         document.getElementById('wishMsg').innerText = w;
         document.getElementById('wishBox').classList.remove('hidden');
     };
@@ -178,15 +196,12 @@ wishes.forEach((w, i) => {
 // --- 7. CANDLE BLOW ---
 function blowCandle(elem, e) {
     const flame = elem.querySelector('.flame');
-    if (flame) {
-        flame.classList.add('out');
-        explodeStars(e);
-    }
+    if (flame) flame.classList.add('out');
 }
 
-// --- 8. PHOTO GALLERY ---
+// --- 8. PHOTO GALLERY (FULL DISPLAY) ---
 const photos = [
-    { img: "https://i.ibb.co/xqXrkbXz/image.jpg", text: "Every moment with you is magical!" },
+    { img: "https://i.ibb.co/xqXrkbXz/image.jpg", text: "Every moment with you is pure magic!" },
     { img: "https://i.ibb.co/htqXCct/image.jpg", text: "Bringing so much brightness into the world!" },
     { img: "https://i.ibb.co/YFqd7gJS/image.jpg", text: "Here's to another wonderful year ahead!" }
 ];
@@ -196,27 +211,23 @@ function nextPhoto(e) {
     photoIdx = (photoIdx + 1) % photos.length;
     document.getElementById('galleryImg').src = photos[photoIdx].img;
     document.getElementById('galleryCaption').innerText = `"${photos[photoIdx].text}"`;
-    explodeStars(e);
 }
 
 function prevPhoto(e) {
     photoIdx = (photoIdx - 1 + photos.length) % photos.length;
     document.getElementById('galleryImg').src = photos[photoIdx].img;
     document.getElementById('galleryCaption').innerText = `"${photos[photoIdx].text}"`;
-    explodeStars(e);
 }
 
 // --- 9. VIDEO SWITCHERS ---
 function switchVideo1(url, e) {
     document.getElementById('videoPlayer1').src = url;
-    explodeStars(e);
 }
 
 function switchVideo2(url, e) {
     document.getElementById('videoPlayer2').src = url;
-    explodeStars(e);
 }
 
 function finalParty(e) {
-    confetti({ particleCount: 200, spread: 120, origin: { y: 0.5 } });
+    confetti({ particleCount: 300, spread: 140, origin: { y: 0.5 } });
 }
