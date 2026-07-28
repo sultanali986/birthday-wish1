@@ -1,4 +1,4 @@
-// --- 1. CONTINUOUS FLOATING BACKGROUND ---
+// --- 1. CONTINUOUS FLOATING BACKGROUND (Balloons, Stars, Candles) ---
 const canvas = document.getElementById('bgAnimationCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -17,8 +17,8 @@ for (let i = 0; i < 50; i++) {
     elements.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 12 + 8,
-        speedY: Math.random() * 1 + 0.3,
+        size: Math.random() * 14 + 8,
+        speedY: Math.random() * 1.2 + 0.4,
         type: types[Math.floor(Math.random() * types.length)],
         color: colorsList[Math.floor(Math.random() * colorsList.length)]
     });
@@ -47,12 +47,12 @@ function drawBalloon(x, y, size, color) {
     ctx.fill();
 }
 
-function drawCandle(x, y) {
+function drawCandleShape(x, y, size, color) {
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(x, y, 4, 14);
-    ctx.fillStyle = '#ff9900';
+    ctx.fillRect(x - size/6, y, size/3, size);
+    ctx.fillStyle = 'orange';
     ctx.beginPath();
-    ctx.arc(x + 2, y - 2, 3, 0, Math.PI * 2);
+    ctx.arc(x, y - 4, size/4, 0, Math.PI * 2);
     ctx.fill();
 }
 
@@ -60,15 +60,15 @@ function renderBackground() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     elements.forEach(el => {
         el.y -= el.speedY;
-        el.x += Math.sin(el.y * 0.02) * 0.5;
+        el.x += Math.sin(el.y * 0.02) * 0.6;
 
         if (el.type === 'star') drawStar(el.x, el.y, el.size, el.color);
         else if (el.type === 'heart') drawHeart(el.x, el.y, el.size, el.color);
         else if (el.type === 'balloon') drawBalloon(el.x, el.y, el.size, el.color);
-        else if (el.type === 'candle') drawCandle(el.x, el.y);
+        else if (el.type === 'candle') drawCandleShape(el.x, el.y, el.size, el.color);
 
-        if (el.y < -20) {
-            el.y = canvas.height + 20;
+        if (el.y < -25) {
+            el.y = canvas.height + 25;
             el.x = Math.random() * canvas.width;
         }
     });
@@ -76,22 +76,31 @@ function renderBackground() {
 }
 renderBackground();
 
-// --- 2. DYNAMIC THEME COLOR SHIFT & CLICK EFFECTS ---
-const themeGradients = [
-    { bg1: '#2a081a', bg2: '#12000c', accent: '#ff007f' },
-    { bg1: '#1d002c', bg2: '#0a0014', accent: '#a855f7' },
-    { bg1: '#001a2c', bg2: '#000814', accent: '#00f2fe' },
-    { bg1: '#2c1a00', bg2: '#140b00', accent: '#ffd700' }
+// --- 2. TOUCH & CLICK EFFECTS (DYNAMIC COLOR CHANGE & PARTICLES) ---
+const themeColors = [
+    { bg1: '#2a081a', bg2: '#12000c', glow: '#ff007f' },
+    { bg1: '#081a2a', bg2: '#000c12', glow: '#00f2fe' },
+    { bg1: '#2a2208', bg2: '#120e00', glow: '#ffd700' },
+    { bg1: '#1a082a', bg2: '#0c0012', glow: '#a855f7' }
 ];
-let themeIndex = 0;
+let colorIndex = 0;
 
-window.addEventListener('click', (e) => {
-    themeIndex = (themeIndex + 1) % themeGradients.length;
-    const t = themeGradients[themeIndex];
-    document.documentElement.style.setProperty('--theme-bg1', t.bg1);
-    document.documentElement.style.setProperty('--theme-bg2', t.bg2);
-    document.documentElement.style.setProperty('--accent-glow', t.accent);
-});
+function sparkTouch(e) {
+    // Change background theme color dynamically on touch/click anywhere
+    colorIndex = (colorIndex + 1) % themeColors.length;
+    const t = themeColors[colorIndex];
+    document.body.style.background = `radial-gradient(circle at center, ${t.bg1} 0%, ${t.bg2} 80%, #000000 100%)`;
+    document.documentElement.style.setProperty('--accent-glow', t.glow);
+
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 18,
+            spread: 60,
+            origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+            colors: [t.glow, '#ffd700', '#ffffff']
+        });
+    }
+}
 
 function explodeStars(e) {
     if (typeof confetti === 'function') {
@@ -99,7 +108,7 @@ function explodeStars(e) {
             particleCount: 25,
             spread: 80,
             origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
-            colors: ['#ffd700', '#ff007f', '#ff66c4', '#ffffff', '#00f2fe']
+            colors: ['#ffd700', '#ff007f', '#ffffff']
         });
     }
 }
@@ -107,10 +116,9 @@ function explodeStars(e) {
 function explodeHearts(e) {
     if (typeof confetti === 'function') {
         confetti({
-            particleCount: 60,
-            spread: 100,
-            shapes: ['circle'],
-            colors: ['#ff007f', '#ff4d4d', '#ff80df', '#ffd700'],
+            particleCount: 50,
+            spread: 90,
+            colors: ['#ff007f', '#ff4d4d', '#ffd700'],
             origin: { y: 0.6 }
         });
     }
@@ -126,7 +134,7 @@ function nextStep(stepNum) {
     }
 }
 
-// --- 4. COUNTDOWN TIMER ---
+// --- 4. TIMER ---
 let timer = 5;
 const timerElem = document.getElementById('timer-number');
 const timerBtn = document.getElementById('btn-timer');
@@ -141,17 +149,21 @@ const countdown = setInterval(() => {
     }
 }, 1000);
 
-// --- 5. DIGIT KEYPAD ---
+// --- 5. STYLISH PASSCODE WITH DIGIT PARTICLES & AUTO-OPEN ---
 let pin = "";
 function pressKey(num, e) {
+    sparkTouch(e); // Trigger special color/particle effect on each digit click
     if (pin.length < 4) {
         pin += num;
         updateDots();
     }
-    if (pin.length === 4) setTimeout(submitPasscode, 300);
+    if (pin.length === 4) {
+        setTimeout(submitPasscode, 300);
+    }
 }
 
 function clearKey(e) {
+    sparkTouch(e);
     if (pin.length > 0) {
         pin = pin.slice(0, -1);
         updateDots();
@@ -166,10 +178,10 @@ function updateDots() {
     }
 }
 
-function submitPasscode() {
+function submitPasscode(e) {
     if (pin === "2708" || pin === "2026") {
-        confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
-        nextStep(3);
+        confetti({ particleCount: 200, spread: 120, origin: { y: 0.5 } });
+        nextStep(3); // Auto opens website/next step instantly!
     } else {
         document.getElementById('pass-error').innerText = "Wrong Passcode! Try again ❤️";
         pin = "";
@@ -177,15 +189,12 @@ function submitPasscode() {
     }
 }
 
-// --- 6. BALLOONS WITH ALAG ALAG WISHES & DONE/NEXT BUTTON ---
+// --- 6. BALLOONS ---
 const wishes = [
-    `✨ Message 1: Happy 20th Birthday! 🌟\n\nTurning 20 is a huge milestone in life. You are stepping out of your teenage years and entering a brand new decade full of incredible opportunities, new dreams, and amazing memories waiting to be created.\n\nFrom the day I first met you, you have brought endless joy, brightness, and comfort into my life. Your laughter has this rare magic that can instantly lighten up even the darkest of days. Always stay the wonderful and stunning person you are! ❤️`,
-
-    `✨ Message 2: A Wish From The Heart 💖\n\nOn this wonderful day, 27th of August, a very special soul was born. Looking back at all our shared moments, I realize how much richer, happier, and meaningful my life has become ever since you entered it.\n\nYou are not just getting a year older, but a year wiser, stronger, and even more breathtakingly beautiful. May this 20th birthday mark the beginning of an era filled with immense success, unexpected blessings, and deep peace! 🌸`,
-
-    `✨ Message 3: To An Extraordinary Person 👑\n\nWishing a very Happy Birthday to someone who truly deserves all the happiness in the entire galaxy!\n\nEntering your twenties is a magical journey. It’s the time where your dreams take flight, where you discover your true strength, and where you build a future full of endless possibilities. Thank you for being such an incredible presence in my life! 🎉`,
-
-    `✨ Message 4: Celebrating YOU Today! 🎈\n\nToday is entirely about celebrating you—your life, your sweet spirit, and the unforgettable impact you make on the lives of those who love you.\n\n20 years of bringing light, laughter, and beauty into this world! I hope today brings you as much happiness as you give to everyone around you. Cheers to your 20th chapter—may it be your best one yet! 🥂✨`
+    `✨ Message 1: Happy 20th Birthday! 🌟\n\nTurning 20 is a huge milestone. You bring endless joy, brightness, and comfort into my life. Stay wonderful! ❤️`,
+    `✨ Message 2: A Wish From The Heart 💖\n\nOn this 27th of August, a very special soul was born. May this year be filled with success, blessings, and deep peace! 🌸`,
+    `✨ Message 3: To An Extraordinary Person 👑\n\nWishing a very Happy Birthday! Entering your twenties is magical. May your dreams take flight! 🎉`,
+    `✨ Message 4: Celebrating YOU Today! 🎈\n\n20 years of bringing light and laughter into this world! Cheers to your 20th chapter! 🥂✨`
 ];
 
 let poppedBalloonsCount = 0;
@@ -198,6 +207,7 @@ wishes.forEach((w, i) => {
     b.style.backgroundColor = colors[i % colors.length];
     b.onclick = (e) => {
         e.stopPropagation();
+        sparkTouch(e);
         b.style.visibility = 'hidden';
         document.getElementById('wishMsg').innerText = w;
         document.getElementById('wishBox').classList.remove('hidden');
@@ -216,6 +226,8 @@ function closeWishBox(e) {
 
 // --- 7. CANDLE BLOW ---
 function blowCandle(elem, e) {
+    e.stopPropagation();
+    sparkTouch(e);
     const flame = elem.querySelector('.flame');
     if (flame) flame.classList.add('out');
 }
@@ -230,6 +242,7 @@ let photoIdx = 0;
 
 function nextPhoto(e) {
     e.stopPropagation();
+    sparkTouch(e);
     photoIdx = (photoIdx + 1) % photos.length;
     document.getElementById('galleryImg').src = photos[photoIdx].img;
     document.getElementById('galleryCaption').innerText = `"${photos[photoIdx].text}"`;
@@ -237,16 +250,31 @@ function nextPhoto(e) {
 
 function prevPhoto(e) {
     e.stopPropagation();
+    sparkTouch(e);
     photoIdx = (photoIdx - 1 + photos.length) % photos.length;
     document.getElementById('galleryImg').src = photos[photoIdx].img;
     document.getElementById('galleryCaption').innerText = `"${photos[photoIdx].text}"`;
 }
 
-// --- 9. VIDEO SWITCHERS (AUTOPLAY FIXED) ---
-function switchVideo1(url, e) {
+// --- 9. CLEAN VIDEO PLAY & SWITCH CONTROLS ---
+function triggerPlay(videoId, overlayId) {
+    const video = document.getElementById(videoId);
+    const overlay = document.getElementById(overlayId);
+    if (video) {
+        video.play();
+        if (overlay) overlay.style.display = 'none';
+    }
+}
+
+function switchCleanVideo1(videoUrl, e) {
     e.stopPropagation();
-    const iframe = document.getElementById('videoPlayer1');
-    iframe.src = url.includes('autoplay=1') ? url : url + '?autoplay=1';
+    sparkTouch(e);
+    const video = document.getElementById('mainVideoPlayer1');
+    const overlay = document.getElementById('playOverlay1');
+    
+    video.src = videoUrl;
+    video.load();
+    overlay.style.display = 'flex';
 
     if (e && e.target) {
         const buttons = e.target.parentElement.querySelectorAll('.btn-sec');
@@ -255,10 +283,15 @@ function switchVideo1(url, e) {
     }
 }
 
-function switchVideo2(url, e) {
+function switchCleanVideo2(videoUrl, e) {
     e.stopPropagation();
-    const iframe = document.getElementById('videoPlayer2');
-    iframe.src = url.includes('autoplay=1') ? url : url + '?autoplay=1';
+    sparkTouch(e);
+    const video = document.getElementById('mainVideoPlayer2');
+    const overlay = document.getElementById('playOverlay2');
+    
+    video.src = videoUrl;
+    video.load();
+    overlay.style.display = 'flex';
 
     if (e && e.target) {
         const buttons = e.target.parentElement.querySelectorAll('.btn-sec');
@@ -269,6 +302,5 @@ function switchVideo2(url, e) {
 
 function finalParty(e) {
     e.stopPropagation();
-    confetti({ particleCount: 300, spread: 140, origin: { y: 0.5 } });
-            }
-        
+    confetti({ particleCount: 350, spread: 150, origin: { y: 0.5 } });
+}
