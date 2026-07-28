@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 20th Birthday! ✨</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
 
+    <!-- Stars Canvas Background -->
+    <canvas id="sparkleCanvas"></canvas>
+
+    <!-- STEP 1: COUNTDOWN TIMER SCREEN -->
+    <section id="step-timer" class="step-screen active">
+        <div class="glass-card text-center">
+            <h2 class="glowing-text">The Surprise Awaits ⏳</h2>
+            <p>Wait for the magic countdown to complete...</p>
+            <div id="countdown-box">
+                <span id="timer-seconds">05</span>
+                <p class="small-text">Seconds Remaining</p>
+            </div>
+            <button id="btn-timer-next" class="btn-primary hidden" onclick="goToStep('step-password')">Unlock Surprise ✨</button>
+        </div>
+    </section>
+
+    <!-- STEP 2: PASSWORD SCREEN -->
+    <section id="step-password" class="step-screen">
+        <div class="glass-card text-center">
+            <div class="lock-icon">🔒</div>
+            <h2 class="glowing-text">Enter Secret Password</h2>
+            <p>Enter the passkey to open your birthday world:</p>
+            <input type="password" id="passInput" placeholder="Enter password (e.g. 2708)">
+            <p id="pass-error" class="error-msg"></p>
+            <button class="btn-primary" onclick="checkPassword()">Unlock Birthday World 💖</button>
+        </div>
+    </section>
+
+    <!-- MAIN WEBSITE CONTENT -->
+    <div id="main-content" class="hidden">
+
+        <!-- WELCOME BANNER -->
+        <header class="welcome-header">
+            <h1 class="sparkle-title">Happy 20th Birthday! 🎉</h1>
+            <p class="subtitle">27th August — A Special Day For A Special Person ✨</p>
+        </header>
+
+        <!-- CHAPTER 1: INTERACTIVE BALLOONS -->
+        <section class="content-section">
+            <h2 class="section-title">🎈 Pop Each Balloon For A Wish</h2>
+            <p class="section-subtitle">Click/Tap the balloons to reveal hidden birthday notes!</p>
+            <div class="balloon-container" id="balloonContainer">
+                <!-- Generated dynamically by JS -->
+            </div>
+            <div id="wishModal" class="modal hidden">
+                <div class="modal-content glass-card">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <p id="wishText"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2: BLOW THE CANDLE (3D CAKE) -->
+        <section class="content-section text-center">
+            <h2 class="section-title">🎂 Make a Wish</h2>
+            <p>Tap the candles to blow them out!</p>
+            <div class="cake-wrapper">
+                <div class="cake">
+                    <div class="plate"></div>
+                    <div class="layer layer-bottom"></div>
+                    <div class="layer layer-middle"></div>
+                    <div class="layer layer-top"></div>
+                    <div class="icing"></div>
+                    <div class="candle-container">
+                        <div class="candle" onclick="blowCandle(this)">
+                            <div class="flame"></div>
+                        </div>
+                        <div class="candle" onclick="blowCandle(this)">
+                            <div class="flame"></div>
+                        </div>
+                        <div class="candle" onclick="blowCandle(this)">
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3: PHOTO MEMORIES & LOVE MESSAGES -->
+        <section class="content-section">
+            <h2 class="section-title">📸 Beautiful Memories</h2>
+            <div class="photo-grid">
+                <div class="polaroid-card">
+                    <img src="https://i.ibb.co/3s36pTL/photo1.jpg" alt="Memory">
+                    <p class="caption">"Every smile of yours brightens up the world ✨"</p>
+                </div>
+                <div class="polaroid-card">
+                    <img src="https://i.ibb.co/4MxFQf4/photo2.jpg" alt="Memory">
+                    <p class="caption">"Moments captured, memories cherished forever ❤️"</p>
+                </div>
+                <div class="polaroid-card">
+                    <img src="https://i.ibb.co/Lzd3N47/photo3.jpg" alt="Memory">
+                    <p class="caption">"You make life feel like a beautiful fairytale 🌸"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 4: SPECIAL BIRTHDAY VIDEOS (3 Drive Videos) -->
+        <section class="content-section">
+            <h2 class="section-title">🎬 Special Birthday Wishes For You</h2>
+            <div class="video-grid">
+                <div class="video-card glass-card">
+                    <h3>Special Wish #1</h3>
+                    <div class="video-container">
+                        <iframe src="https://drive.google.com/file/d/1Xl-S2zO2x3O34X3X/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <div class="video-card glass-card">
+                    <h3>Special Wish #2</h3>
+                    <div class="video-container">
+                        <iframe src="https://drive.google.com/file/d/1Ym-S2zO2x3O34X3X/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <div class="video-card glass-card">
+                    <h3>Special Wish #3</h3>
+                    <div class="video-container">
+                        <iframe src="https://drive.google.com/file/d/1Zm-S2zO2x3O34X3X/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 5: WHY YOU ARE AWESOME (Interactive Cards) -->
+        <section class="content-section">
+            <h2 class="section-title">✨ Why You Are So Special</h2>
+            <div class="card-grid">
+                <div class="flip-card glass-card" onclick="triggerSparkle(event)">
+                    <p>💖 "Your kindness and smile bring warmth to everyone around you."</p>
+                </div>
+                <div class="flip-card glass-card" onclick="triggerSparkle(event)">
+                    <p>🌟 "You inspire positivity wherever you go."</p>
+                </div>
+                <div class="flip-card glass-card" onclick="triggerSparkle(event)">
+                    <p>🎀 "Turning 20 looks absolutely magical on you!"</p>
+                </div>
+                <div class="flip-card glass-card" onclick="triggerSparkle(event)">
+                    <p>🌸 "May this new chapter bring endless happiness and success."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 6: COUPLE & CUTE ANIMATED VIDEOS (5 Drive Links) -->
+        <section class="content-section">
+            <h2 class="section-title">👩‍❤️‍👨 Magical Couple & Cute Moments</h2>
+            <div class="video-grid-5">
+                <div class="video-card glass-card">
+                    <iframe src="https://drive.google.com/file/d/13yiLCG9cpYq-iqLVR-cOGELkrj7SEgCY/preview"></iframe>
+                </div>
+                <div class="video-card glass-card">
+                    <iframe src="https://drive.google.com/file/d/1qYeJ6Wvp-ta4o7HUalzD_z9jZVrT6axX/preview"></iframe>
+                </div>
+                <div class="video-card glass-card">
+                    <iframe src="https://drive.google.com/file/d/1ORCdpG403cIkwaTfh1LSkT2IgSvBp8wL/preview"></iframe>
+                </div>
+                <div class="video-card glass-card">
+                    <iframe src="https://drive.google.com/file/d/1YDjmQWy6NlyMoD5ctXUcUqf5msrsKiXV/preview"></iframe>
+                </div>
+                <div class="video-card glass-card">
+                    <iframe src="https://drive.google.com/file/d/12psRul6UvxDlz2bfazLywzpu_yX8N4uL/preview"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL LETTER & WISHES -->
+        <section class="content-section text-center">
+            <div class="glass-card letter-box">
+                <h2 class="script-font">A Special Birthday Letter 💌</h2>
+                <p class="letter-text">
+                    "Happy 20th Birthday! From the bottom of my heart, I wish you a year filled with endless laughter, boundless joy, and all the success in the world. Always keep shining brighter than the stars!"
+                </p>
+                <button class="btn-primary" onclick="fireCelebration()">Celebrate Now! 🎆</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Made with Love ❤️ | Celebrating 20 Years of Magic</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
