@@ -1,4 +1,4 @@
-// --- 1. CONTINUOUS FLOATING BACKGROUND (Stars, Hearts, Balloons, Candles) ---
+// --- 1. CONTINUOUS FLOATING BACKGROUND ---
 const canvas = document.getElementById('bgAnimationCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -13,12 +13,12 @@ const elements = [];
 const types = ['star', 'heart', 'balloon', 'candle'];
 const colorsList = ['#ff007f', '#ff66c4', '#ffd700', '#ffffff', '#00f2fe', '#a855f7'];
 
-for (let i = 0; i < 60; i++) {
+for (let i = 0; i < 50; i++) {
     elements.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 12 + 8,
-        speedY: Math.random() * 1.2 + 0.3,
+        speedY: Math.random() * 1 + 0.3,
         type: types[Math.floor(Math.random() * types.length)],
         color: colorsList[Math.floor(Math.random() * colorsList.length)]
     });
@@ -58,7 +58,6 @@ function drawCandle(x, y) {
 
 function renderBackground() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     elements.forEach(el => {
         el.y -= el.speedY;
         el.x += Math.sin(el.y * 0.02) * 0.5;
@@ -73,25 +72,20 @@ function renderBackground() {
             el.x = Math.random() * canvas.width;
         }
     });
-
     requestAnimationFrame(renderBackground);
 }
 renderBackground();
 
-// --- 2. DYNAMIC THEME COLOR SHIFT & CLICK SPARKLES ---
+// --- 2. DYNAMIC THEME COLOR SHIFT & CLICK EFFECTS ---
 const themeGradients = [
     { bg1: '#2a081a', bg2: '#12000c', accent: '#ff007f' },
     { bg1: '#1d002c', bg2: '#0a0014', accent: '#a855f7' },
     { bg1: '#001a2c', bg2: '#000814', accent: '#00f2fe' },
     { bg1: '#2c1a00', bg2: '#140b00', accent: '#ffd700' }
 ];
-
 let themeIndex = 0;
 
 window.addEventListener('click', (e) => {
-    explodeStars(e);
-    
-    // Shift theme tint on click
     themeIndex = (themeIndex + 1) % themeGradients.length;
     const t = themeGradients[themeIndex];
     document.documentElement.style.setProperty('--theme-bg1', t.bg1);
@@ -106,6 +100,18 @@ function explodeStars(e) {
             spread: 80,
             origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
             colors: ['#ffd700', '#ff007f', '#ff66c4', '#ffffff', '#00f2fe']
+        });
+    }
+}
+
+function explodeHearts(e) {
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 60,
+            spread: 100,
+            shapes: ['circle'],
+            colors: ['#ff007f', '#ff4d4d', '#ff80df', '#ffd700'],
+            origin: { y: 0.6 }
         });
     }
 }
@@ -171,37 +177,18 @@ function submitPasscode() {
     }
 }
 
-// --- 6. POP BALLOONS & LONG DETAILED WISHES (20-30+ LINES EACH) ---
+// --- 6. BALLOONS WITH ALAG ALAG WISHES & DONE/NEXT BUTTON ---
 const wishes = [
-    `✨ Message 1: Happy 20th Birthday! 🌟
-Turning 20 is a huge milestone in life. You are stepping out of your teenage years and entering a brand new decade full of incredible opportunities, new dreams, and amazing memories waiting to be created. 
+    `✨ Message 1: Happy 20th Birthday! 🌟\n\nTurning 20 is a huge milestone in life. You are stepping out of your teenage years and entering a brand new decade full of incredible opportunities, new dreams, and amazing memories waiting to be created.\n\nFrom the day I first met you, you have brought endless joy, brightness, and comfort into my life. Your laughter has this rare magic that can instantly lighten up even the darkest of days. Always stay the wonderful and stunning person you are! ❤️`,
 
-From the day I first met you, you have brought endless joy, brightness, and comfort into my life. Your laughter has this rare magic that can instantly lighten up even the darkest of days. You possess a kind, compassionate, same-hearted soul that genuinely cares for everyone around you.
+    `✨ Message 2: A Wish From The Heart 💖\n\nOn this wonderful day, 27th of August, a very special soul was born. Looking back at all our shared moments, I realize how much richer, happier, and meaningful my life has become ever since you entered it.\n\nYou are not just getting a year older, but a year wiser, stronger, and even more breathtakingly beautiful. May this 20th birthday mark the beginning of an era filled with immense success, unexpected blessings, and deep peace! 🌸`,
 
-As you blow out your birthday candles today, my only prayer for you is that the universe gives you back all the warmth, happiness, and love that you freely give to the world every single day. May your days be filled with success, good health, and moments that make your heart overflow with pure joy. Always stay the wonderful, genuine, and stunning person you are! ❤️`,
+    `✨ Message 3: To An Extraordinary Person 👑\n\nWishing a very Happy Birthday to someone who truly deserves all the happiness in the entire galaxy!\n\nEntering your twenties is a magical journey. It’s the time where your dreams take flight, where you discover your true strength, and where you build a future full of endless possibilities. Thank you for being such an incredible presence in my life! 🎉`,
 
-    `✨ Message 2: A Wish From The Heart 💖
-On this wonderful day, 27th of August, a very special soul was born. Looking back at all our shared moments, I realize how much richer, happier, and meaningful my life has become ever since you entered it.
-
-You are not just getting a year older, but a year wiser, stronger, and even more breathtakingly beautiful. The grace with which you handle every situation, the warmth in your smile, and the purity in your intentions are qualities that make you stand out from everyone else in this world.
-
-May this 20th birthday mark the beginning of an era filled with immense success, unexpected blessings, thrilling adventures, and deep peace. Never doubt how capable and extraordinary you are. Keep shining bright, chasing your passions, and spreading your charming energy wherever you go! 🌸`,
-
-    `✨ Message 3: To An Extraordinary Person 👑
-Wishing a very Happy Birthday to someone who truly deserves all the happiness in the entire galaxy! 
-
-Entering your twenties is a magical journey. It’s the time where your dreams take flight, where you discover your true strength, and where you build a future full of endless possibilities. Knowing how determined, talented, and kind-hearted you are, I have no doubt that your twenties are going to be absolutely stellar!
-
-Thank you for being such an incredible presence in my life—for listening when I needed a friend, for sharing endless laughs, and for making every ordinary day feel extraordinary. May God bless you with sound health, lifelong happiness, safety, and all the success you've ever dreamt of! 🎉`,
-
-    `✨ Message 4: Celebrating YOU Today! 🎈
-Today is entirely about celebrating you—your life, your sweet spirit, and the unforgettable impact you make on the lives of those who love you.
-
-20 years of bringing light, laughter, and beauty into this world! I hope today brings you as much happiness as you give to everyone around you every single day. May your cake be sweet, your gifts be plenty, and your heart be overflowing with pure love.
-
-Remember, no matter where life takes you or how fast time flies, you will always have someone cheering for you, supporting your dreams, and wishing you the absolute best. Cheers to your 20th chapter—may it be your best one yet! 🥂✨`
+    `✨ Message 4: Celebrating YOU Today! 🎈\n\nToday is entirely about celebrating you—your life, your sweet spirit, and the unforgettable impact you make on the lives of those who love you.\n\n20 years of bringing light, laughter, and beauty into this world! I hope today brings you as much happiness as you give to everyone around you. Cheers to your 20th chapter—may it be your best one yet! 🥂✨`
 ];
 
+let poppedBalloonsCount = 0;
 const balloonGrid = document.getElementById('balloonGrid');
 const colors = ['#ff007f', '#a855f7', '#ffd700', '#00f2fe'];
 
@@ -210,12 +197,22 @@ wishes.forEach((w, i) => {
     b.className = 'balloon';
     b.style.backgroundColor = colors[i % colors.length];
     b.onclick = (e) => {
+        e.stopPropagation();
         b.style.visibility = 'hidden';
         document.getElementById('wishMsg').innerText = w;
         document.getElementById('wishBox').classList.remove('hidden');
+        poppedBalloonsCount++;
     };
     balloonGrid.appendChild(b);
 });
+
+function closeWishBox(e) {
+    e.stopPropagation();
+    document.getElementById('wishBox').classList.add('hidden');
+    if (poppedBalloonsCount >= wishes.length) {
+        document.getElementById('afterBalloonsBtn').classList.remove('hidden');
+    }
+}
 
 // --- 7. CANDLE BLOW ---
 function blowCandle(elem, e) {
@@ -223,7 +220,7 @@ function blowCandle(elem, e) {
     if (flame) flame.classList.add('out');
 }
 
-// --- 8. PHOTO GALLERY (FULL DISPLAY) ---
+// --- 8. PHOTO GALLERY ---
 const photos = [
     { img: "https://i.ibb.co/xqXrkbXz/image.jpg", text: "Every moment with you is pure magic!" },
     { img: "https://i.ibb.co/htqXCct/image.jpg", text: "Bringing so much brightness into the world!" },
@@ -232,26 +229,46 @@ const photos = [
 let photoIdx = 0;
 
 function nextPhoto(e) {
+    e.stopPropagation();
     photoIdx = (photoIdx + 1) % photos.length;
     document.getElementById('galleryImg').src = photos[photoIdx].img;
     document.getElementById('galleryCaption').innerText = `"${photos[photoIdx].text}"`;
 }
 
 function prevPhoto(e) {
+    e.stopPropagation();
     photoIdx = (photoIdx - 1 + photos.length) % photos.length;
     document.getElementById('galleryImg').src = photos[photoIdx].img;
     document.getElementById('galleryCaption').innerText = `"${photos[photoIdx].text}"`;
 }
 
-// --- 9. VIDEO SWITCHERS ---
+// --- 9. VIDEO SWITCHERS (AUTOPLAY FIXED) ---
 function switchVideo1(url, e) {
-    document.getElementById('videoPlayer1').src = url;
+    e.stopPropagation();
+    const iframe = document.getElementById('videoPlayer1');
+    iframe.src = url.includes('autoplay=1') ? url : url + '?autoplay=1';
+
+    if (e && e.target) {
+        const buttons = e.target.parentElement.querySelectorAll('.btn-sec');
+        buttons.forEach(btn => btn.classList.remove('active-vbtn'));
+        e.target.classList.add('active-vbtn');
+    }
 }
 
 function switchVideo2(url, e) {
-    document.getElementById('videoPlayer2').src = url;
+    e.stopPropagation();
+    const iframe = document.getElementById('videoPlayer2');
+    iframe.src = url.includes('autoplay=1') ? url : url + '?autoplay=1';
+
+    if (e && e.target) {
+        const buttons = e.target.parentElement.querySelectorAll('.btn-sec');
+        buttons.forEach(btn => btn.classList.remove('active-vbtn'));
+        e.target.classList.add('active-vbtn');
+    }
 }
 
 function finalParty(e) {
+    e.stopPropagation();
     confetti({ particleCount: 300, spread: 140, origin: { y: 0.5 } });
-}
+            }
+        
