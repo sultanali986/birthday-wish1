@@ -55,9 +55,9 @@ body {
     to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Premium Frosted Curved Glass Styling */
+/* Premium Glass Box */
 .glass-box {
-    background: rgba(35, 5, 25, 0.45);
+    background: rgba(35, 5, 25, 0.5);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 2px solid rgba(255, 105, 180, 0.5);
@@ -72,7 +72,7 @@ body {
 .text-left { text-align: left; }
 .hidden { display: none !important; }
 
-/* Large & Elegant Typography */
+/* Large Typography */
 .glow-title {
     font-size: 2.3rem;
     font-family: 'Playfair Display', serif;
@@ -172,7 +172,7 @@ body {
 .keypad-btn { width: 65px; height: 65px; border-radius: 50%; border: 1.5px solid rgba(255, 105, 180, 0.4); background: rgba(255, 0, 127, 0.2); color: white; font-size: 1.5rem; font-weight: 600; cursor: pointer; margin: 0 auto; }
 .keypad-btn:active { background: var(--accent-glow); transform: scale(0.9); }
 
-/* Balloon Wishes Fix */
+/* Balloon Wishes & Scrollable Box Fix */
 .balloon-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px 0; }
 .balloon { width: 55px; height: 70px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; cursor: pointer; animation: float 3s infinite alternate ease-in-out; }
 @keyframes float { to { transform: translateY(-12px); } }
@@ -180,16 +180,20 @@ body {
 .wish-banner { 
     background: rgba(255, 0, 127, 0.25); 
     border: 1.5px solid var(--accent-light); 
-    padding: 18px; 
-    border-radius: 18px; 
-    font-size: 1.15rem; 
-    font-weight: 600;
+    padding: 22px; 
+    border-radius: 20px; 
+    font-size: 0.98rem; 
+    line-height: 1.7;
     color: var(--gold); 
     margin-top: 15px; 
+    max-height: 320px;
+    overflow-y: auto;
+    text-align: left;
+    white-space: pre-line;
     box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
 }
 
-/* Polaroid Photo Fix - FULL PHOTO DISPLAY NO CUTTING */
+/* Polaroid Photo Fix - FULL PHOTO DISPLAY */
 .polaroid-wrapper { margin: 20px 0; }
 .polaroid-frame { 
     background: #ffffff; 
@@ -211,7 +215,7 @@ body {
 .img-container img { 
     width: 100%; 
     height: 100%; 
-    object-fit: contain; /* Prevents image cropping */
+    object-fit: contain; 
 }
 .caption-lg { font-family: 'Dancing Script', cursive; font-size: 1.6rem; margin-top: 10px; color: #222; }
 
@@ -248,8 +252,8 @@ body {
     background: rgba(255, 0, 127, 0.18); 
     padding: 16px; 
     border-radius: 16px; 
-    font-size: 0.95rem; 
-    line-height: 1.4;
+    font-size: 0.88rem; 
+    line-height: 1.5;
     cursor: pointer; 
     border: 1.5px solid rgba(255,105,180,0.4); 
     transition: transform 0.2s;
@@ -262,16 +266,18 @@ body {
 .award-card h4 { font-size: 0.9rem; color: var(--gold); }
 .award-card p { font-size: 0.7rem; color: #eeddff; }
 
-/* Letter Section */
+/* Letter Section with Custom Scrollbar */
 .letter-content { 
     background: rgba(255, 0, 127, 0.12); 
-    padding: 22px; 
-    border-radius: 18px; 
-    font-size: 1rem; 
-    line-height: 1.6; 
+    padding: 25px; 
+    border-radius: 20px; 
+    font-size: 0.98rem; 
+    line-height: 1.7; 
     margin: 18px 0; 
     color: #fce1f2; 
     border: 1.5px solid rgba(255,105,180,0.4); 
+    max-height: 380px;
+    overflow-y: auto;
 }
 .signature-lg { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--gold); text-align: right; margin-top: 12px; }
 
