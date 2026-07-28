@@ -10,10 +10,12 @@
 </head>
 <body>
 
+    <!-- Background Canvas for Floating Stars, Hearts, Balloons & Candles -->
     <canvas id="bgAnimationCanvas"></canvas>
 
+    <!-- STEP 1: TIMER -->
     <div id="step-1" class="step-card active">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h1 class="glow-title">The Magic Awaits ⏳</h1>
             <p class="subtitle-lg">Preparing your exclusive surprise...</p>
             <div id="timer-number">05</div>
@@ -22,8 +24,9 @@
         </div>
     </div>
 
+    <!-- STEP 2: PASSWORD -->
     <div id="step-2" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <div class="lock-icon">🔒</div>
             <h2 class="glow-title">Secret Passcode</h2>
             <p class="subtitle-lg">Enter the passkey to open your world</p>
@@ -51,8 +54,9 @@
         </div>
     </div>
 
+    <!-- STEP 3: WELCOME -->
     <div id="step-3" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h1 class="glow-title script-font-lg">Happy 20th Birthday! 🎉</h1>
             <p class="subtitle-lg highlight-gold">27th August — A Special Day For You ✨</p>
             <p class="description-lg">Welcome to your personalized magical realm. Step inside for an unforgettable experience full of joy and surprises!</p>
@@ -60,8 +64,9 @@
         </div>
     </div>
 
+    <!-- STEP 4: BALLOONS -->
     <div id="step-4" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Pop A Balloon 🎈</h2>
             <p class="subtitle-lg">Tap each balloon one by one to reveal your special messages</p>
             <div class="balloon-grid" id="balloonGrid"></div>
@@ -76,8 +81,9 @@
         </div>
     </div>
 
+    <!-- STEP 5: CAKE -->
     <div id="step-5" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Blow The Candles 🎂</h2>
             <p class="subtitle-lg">Tap each flame to blow them out and make your wish!</p>
             <div class="cake-box">
@@ -96,8 +102,9 @@
         </div>
     </div>
 
+    <!-- STEP 6: PHOTO GALLERY -->
     <div id="step-6" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Special Memories 📸</h2>
             <div class="polaroid-wrapper">
                 <div class="polaroid-frame">
@@ -116,81 +123,94 @@
         </div>
     </div>
 
+    <!-- STEP 7: VIDEO WISHES -->
     <div id="step-7" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Video Surprises 🎬</h2>
-            <p class="subtitle-lg">Click any button below to watch special clips</p>
-            <div class="video-container-box">
-                <iframe id="videoPlayer1" src="https://drive.google.com/file/d/1YmPbjhJYp-b2coyCU9xb3RDy7fqwGmfq/preview?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <p class="subtitle-lg">Tap play to enjoy your clips</p>
+            
+            <div class="custom-video-box">
+                <video id="mainVideoPlayer1" controls playsinline preload="metadata">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+                <div id="playOverlay1" class="video-play-overlay" onclick="triggerPlay('mainVideoPlayer1', 'playOverlay1')">
+                    <div class="big-play-btn">▶ Play Video</div>
+                </div>
             </div>
-            <div class="controls-row flex-wrap">
-                <button class="btn-sec active-vbtn" onclick="switchVideo1('https://drive.google.com/file/d/1YmPbjhJYp-b2coyCU9xb3RDy7fqwGmfq/preview?autoplay=1', event)">Video 1 🎥</button>
-                <button class="btn-sec" onclick="switchVideo1('https://drive.google.com/file/d/150XnEI4rFlgbFFiwAiL3canqdjWCF0Cn/preview?autoplay=1', event)">Video 2 🎥</button>
-                <button class="btn-sec" onclick="switchVideo1('https://drive.google.com/file/d/14UmnfCb1Akgj8MR68iZ7p-eDQeanYWZ7/preview?autoplay=1', event)">Video 3 🎥</button>
+
+            <div class="controls-row flex-wrap mt-3">
+                <button class="btn-sec active-vbtn" onclick="switchCleanVideo1('https://www.w3schools.com/html/mov_bbb.mp4', event)">Video 1 🎥</button>
+                <button class="btn-sec" onclick="switchCleanVideo1('https://www.w3schools.com/html/movie.mp4', event)">Video 2 🎥</button>
+                <button class="btn-sec" onclick="switchCleanVideo1('https://www.w3schools.com/html/mov_bbb.mp4', event)">Video 3 🎥</button>
             </div>
             <br>
             <button class="btn-glow" onclick="nextStep(8)">Explore More 🌟</button>
         </div>
     </div>
 
+    <!-- STEP 8: TRAITS -->
     <div id="step-8" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Why You Are Amazing ✨</h2>
             <p class="subtitle-lg">Tap cards to spark magic!</p>
             <div class="cards-grid">
-                <div class="feature-card" onclick="explodeStars(event)"><p>💖 <strong>Radiant Personality:</strong> Your smile has the power to instantly uplift any room you walk into. Your positive energy makes everyone feel happy.</p></div>
-                <div class="feature-card" onclick="explodeStars(event)"><p>🌟 <strong>Pure & Kind Heart:</strong> In a world where genuine kindness is rare, your heart remains pure, empathetic, and full of selfless love.</p></div>
-                <div class="feature-card" onclick="explodeStars(event)"><p>🌸 <strong>Stunning Elegance:</strong> Turning 20 looks absolutely gorgeous on you! Your elegance, grace, and charm are unmatched.</p></div>
-                <div class="feature-card" onclick="explodeStars(event)"><p>🎀 <strong>Inspirational Soul:</strong> The way you balance strength with gentleness is inspiring. You are destined for boundless greatness!</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>💖 <strong>Radiant Personality:</strong> Your smile instantly lights up every room.</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>🌟 <strong>Pure Heart:</strong> Your empathy and kindness are truly unmatched.</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>🌸 <strong>Stunning Elegance:</strong> Turning 20 looks gorgeous on you!</p></div>
+                <div class="feature-card" onclick="explodeStars(event)"><p>🎀 <strong>Inspirational Soul:</strong> Destined for absolute greatness!</p></div>
             </div>
             <br>
             <button class="btn-glow" onclick="nextStep(9)">Watch Special Moments 👩‍❤️‍👨</button>
         </div>
     </div>
 
+    <!-- STEP 9: REELS -->
     <div id="step-9" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Special Moments 👩‍❤️‍👨</h2>
             <p class="subtitle-lg">Clips created with love</p>
-            <div class="video-container-box">
-                <iframe id="videoPlayer2" src="https://drive.google.com/file/d/13yiLCG9cpYq-iqLVR-cOGELkrj7SEgCY/preview?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            
+            <div class="custom-video-box">
+                <video id="mainVideoPlayer2" controls playsinline preload="metadata">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+                <div id="playOverlay2" class="video-play-overlay" onclick="triggerPlay('mainVideoPlayer2', 'playOverlay2')">
+                    <div class="big-play-btn">▶ Play Video</div>
+                </div>
             </div>
-            <div class="controls-row flex-wrap">
-                <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/13yiLCG9cpYq-iqLVR-cOGELkrj7SEgCY/preview?autoplay=1', event)">Clip 1</button>
-                <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/1qYeJ6Wvp-ta4o7HUalzD_z9jZVrT6axX/preview?autoplay=1', event)">Clip 2</button>
-                <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/1ORCdpG403cIkwaTfh1LSkT2IgSvBp8wL/preview?autoplay=1', event)">Clip 3</button>
-                <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/1YDjmQWy6NlyMoD5ctXUcUqf5msrsKiXV/preview?autoplay=1', event)">Clip 4</button>
-                <button class="btn-sec" onclick="switchVideo2('https://drive.google.com/file/d/12psRul6UvxDlz2bfazLywzpu_yX8N4uL/preview?autoplay=1', event)">Clip 5</button>
+
+            <div class="controls-row flex-wrap mt-3">
+                <button class="btn-sec" onclick="switchCleanVideo2('https://www.w3schools.com/html/mov_bbb.mp4', event)">Clip 1</button>
+                <button class="btn-sec" onclick="switchCleanVideo2('https://www.w3schools.com/html/movie.mp4', event)">Clip 2</button>
+                <button class="btn-sec" onclick="switchCleanVideo2('https://www.w3schools.com/html/mov_bbb.mp4', event)">Clip 3</button>
+                <button class="btn-sec" onclick="switchCleanVideo2('https://www.w3schools.com/html/movie.mp4', event)">Clip 4</button>
+                <button class="btn-sec" onclick="switchCleanVideo2('https://www.w3schools.com/html/mov_bbb.mp4', event)">Clip 5</button>
             </div>
             <br>
             <button class="btn-glow" onclick="nextStep(10)">Read Special Letter 💌</button>
         </div>
     </div>
 
+    <!-- STEP 10: LETTER -->
     <div id="step-10" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title script-font-lg">A Letter For You 💌</h2>
             <div class="letter-content text-left">
-                <p><strong>Dearest Special One,</strong></p>
-                <br>
-                <p>On this very special day as you turn 20, I wanted to take a moment to write down what words often fail to express in daily conversations. 27th August is not just another date on the calendar; it is the day the world was blessed with your wonderful, radiant presence.</p>
-                <br>
-                <p>Stepping into your twenties is a beautiful turning point in life. Looking back at your journey, I am constantly amazed by the person you have grown into—kind, strong, elegant, and deeply compassionate. Your laugh is easily my favorite sound, and your presence brings a sense of peace that is impossible to find anywhere else.</p>
-                <br>
-                <p>Thank you for being you. Thank you for all the sweet smiles, the endless conversations, the shared moments of pure happiness, and the gentle comfort you offer just by existing. You bring a unique warmth into my world that makes everything brighter and better.</p>
-                <br>
-                <p>As you blow out your candles and start this incredible new chapter of your life, my deepest wish for you is that you are always surrounded by genuine love, true peace, sound health, and boundless success in everything you strive for. Never let the world change the purity of your heart, and never stop believing in how truly capable, extraordinary, and magical you are.</p>
-                <br>
-                <p>Happy 20th Birthday once again! May this year be filled with unforgettable adventures, endless joy, and moments that make your heart overflow with pure love.</p>
-                <br>
+                <p><strong>Dearest Special One,</strong></p><br>
+                <p>On this very special day as you turn 20, I wanted to take a moment to write down what words often fail to express. 27th August is the day the world was blessed with your radiant presence.</p><br>
+                <p>Stepping into your twenties is a beautiful turning point. Your laugh is my favorite sound, and your presence brings deep peace.</p><br>
+                <p>Thank you for being you, for all the sweet smiles and shared moments of pure happiness.</p><br>
                 <p class="signature-lg">Forever & Always Yours ❤️</p>
             </div>
             <button class="btn-glow" onclick="nextStep(11)">View Constellation 🌟</button>
         </div>
     </div>
 
+    <!-- STEP 11: CONSTELLATION -->
     <div id="step-11" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Your Heart Constellation 💖</h2>
             <p class="subtitle-lg">Tap the glowing heart below to pop endless love!</p>
             <div class="constellation-box" onclick="explodeHearts(event)">
@@ -201,21 +221,22 @@
         </div>
     </div>
 
+    <!-- STEP 12: FINAL WISHES -->
     <div id="step-12" class="step-card">
-        <div class="glass-box text-center">
+        <div class="glass-box text-center" onclick="sparkTouch(event)">
             <h2 class="glow-title">Final Special Wishes ✨</h2>
             <div class="final-wishes-container">
                 <div class="final-wish-card" onclick="explodeStars(event)">
                     <h3>🌟 First Final Wish: Infinite Joy</h3>
-                    <p>May every single day of your 20s bring unexpected blessings, smiling faces, and moments of pure bliss. You deserve all the stars in the sky for the amount of happiness you spread around you without even trying!</p>
+                    <p>May every single day of your 20s bring unexpected blessings and pure bliss.</p>
                 </div>
                 <div class="final-wish-card" onclick="explodeStars(event)">
                     <h3>💖 Second Final Wish: Unshakable Strength</h3>
-                    <p>No matter what challenges come your way, may you always find the courage, resilience, and inner strength to conquer them effortlessly. You are braver than you believe and stronger than you seem!</p>
+                    <p>May you always find the courage and inner strength to conquer challenges effortlessly.</p>
                 </div>
                 <div class="final-wish-card" onclick="explodeStars(event)">
                     <h3>👑 Third Final Wish: A Lifetime Together</h3>
-                    <p>May our bond grow stronger, sweeter, and more beautiful with every passing year. Here is to celebrating countless more birthdays, creating timeless memories, and walking hand-in-hand through life's wonderful journey forever!</p>
+                    <p>May our bond grow stronger, sweeter, and more beautiful with every passing year.</p>
                 </div>
             </div>
             <br>
@@ -225,5 +246,4 @@
 
     <script src="script.js"></script>
 </body>
-    </html>
-    
+</html>
